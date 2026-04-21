@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+
+  --color-background: #0e0e0e;
+  --color-foreground: #e8e2d9;
+  --color-card: #131210;
+  --color-card-foreground: #e8e2d9;
+  --color-popover: #1a1916;
+  --color-popover-foreground: #e8e2d9;
+  --color-primary: #c9a96e;
+  --color-primary-foreground: #1a1208;
+  --color-secondary: #1f1e1d;
+  --color-secondary-foreground: #e8e2d9;
+  --color-muted: #1a1916;
+  --color-muted-foreground: #5a5248;
+  --color-accent: #1f1e1d;
+  --color-accent-foreground: #e8e2d9;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #fecaca;
+  --color-border: #2a2820;
+  --color-input: #2a2820;
+  --color-ring: #c9a96e;
+  --color-chart-1: #c9a96e;
+  --color-chart-2: #ddb87a;
+  --color-chart-3: #8a8070;
+  --color-chart-4: #5a5248;
+  --color-chart-5: #3a3830;
+
+  --color-sidebar: #0a0a0a;
+  --color-sidebar-foreground: #e8e2d9;
+  --color-sidebar-primary: #c9a96e;
+  --color-sidebar-primary-foreground: #1a1208;
+  --color-sidebar-accent: #1a1916;
+  --color-sidebar-accent-foreground: #e8e2d9;
+  --color-sidebar-border: #2a2820;
+  --color-sidebar-ring: #c9a96e;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --spacing: 0.25rem;
+
+  --color-gold: #c9a96e;
+  --color-bg: #0e0e0e;
+  --color-surface: #131210;
+  --color-text: #e8e2d9;
+  --color-dim: #3a3830;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0e0e0e;
+  color: #e8e2d9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Serif font utility */
+.font-serif {
+  font-family: var(--font-serif) !important;
+}
+
+/* Gold button */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c9a96e;
+  color: #1a1208;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  font-family: var(--font-sans);
+}
+
+.btn-gold:hover {
+  background-color: #ddb87a;
+}
+
+.btn-gold:active {
+  transform: scale(0.98);
+}
+
+.btn-gold:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #3a3830;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.custom-checkbox.checked {
+  background-color: #c9a96e;
+  border-color: #c9a96e;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.2s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0e0e0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2820;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3830;
+}
