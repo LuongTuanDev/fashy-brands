@@ -19,6 +19,15 @@ import ForgotPassword from "@/pages/auth/ForgotPassword";
 import Dashboard from "@/pages/admin/Dashboard";
 import ProductManagement from "@/pages/admin/ProductManagement";
 import OrderManagement from "@/pages/admin/OrderManagement";
+import CollectionManagement from "@/pages/admin/CollectionManagement";
+import SellerSettings from "@/pages/admin/SellerSettings";
+import UserManagement from "@/pages/admin/UserManagement";
+import AddProduct from "@/pages/admin/AddProduct";
+import InventoryManagement from "@/pages/admin/InventoryManagement";
+import CustomerManagement from "@/pages/admin/CustomerManagement";
+import CollectionDetail from "@/pages/admin/CollectionDetail";
+import VariantManagement from "@/pages/admin/VariantManagement";
+import ProtectedRoute from "@/routes/ProtectedRoute";
 
 import NotFound from "@/pages/NotFound";
 
@@ -46,10 +55,21 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Admin */}
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/products" element={<ProductManagement />} />
-        <Route path="/admin/orders" element={<OrderManagement />} />
+        {/* Admin (Protected) */}
+        <Route element={<ProtectedRoute allowedRoles={['admin', 'seller']} />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/products" element={<ProductManagement />} />
+          <Route path="/dashboard/orders" element={<OrderManagement />} />
+          <Route path="/dashboard/collections" element={<CollectionManagement />} />
+          <Route path="/dashboard/collections/:name" element={<CollectionDetail />} />
+          <Route path="/dashboard/inventory" element={<InventoryManagement />} />
+          <Route path="/dashboard/inventory/:id" element={<VariantManagement />} />
+          <Route path="/dashboard/customers" element={<CustomerManagement />} />
+          <Route path="/dashboard/settings" element={<SellerSettings />} />
+          <Route path="/dashboard/users" element={<UserManagement />} />
+          <Route path="/dashboard/products/add" element={<AddProduct />} />
+          <Route path="/dashboard/products/edit/:id" element={<AddProduct />} />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>

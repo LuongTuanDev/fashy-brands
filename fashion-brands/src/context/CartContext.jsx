@@ -44,7 +44,7 @@ function cartReducer(state, action) {
   }
 }
 const CartContext = createContext(null);
-const STORAGE_KEY = "atelier_cart";
+const STORAGE_KEY = "fashy_cart";
 function loadFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);

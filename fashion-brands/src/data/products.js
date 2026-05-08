@@ -88,8 +88,8 @@ const apparelProducts = [
     sizes: ["XS", "S", "M", "L", "XL"],
     colors: [{ name: "Tr\u1EAFng", hex: "#f0ede8" }],
     images: [
-      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=800&q=80",
-      "https://images.unsplash.com/photo-1563630423918-b58f07336ac9?w=800&q=80"
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80",
+      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80"
     ],
     isNew: false,
     isBestseller: true,
@@ -318,7 +318,7 @@ const accessoriesProducts = [
     ],
     isNew: false,
     isBestseller: true,
-    description: "Clutch c\u1EA7m tay l\xE0m t\u1EEB da c\xE1 s\u1EA5u n\u01B0\u1EDBc m\u1EB7n nh\u1EADp kh\u1EA9u. Kh\xF3a gold-plated v\u1EDBi logo ATELIER n\u1ED5i.",
+    description: "Clutch cầm tay làm từ da cá sấu nước mặn nhập khẩu. Khóa gold-plated với logo FASHY nổi.",
     material: "Da C\xE1 S\u1EA5u, Ph\u1EE5 Ki\u1EC7n V\xE0ng 18K",
     rating: 4.9,
     reviews: 28
@@ -433,7 +433,7 @@ const accessoriesProducts = [
   },
   {
     id: "ac8",
-    name: "N\u01B0\u1EDBc Hoa Atelier N\xB001",
+    name: "Nước Hoa Fashy N°01",
     nameEn: "SIGNATURE SCENT",
     price: 65e5,
     category: "accessories",
@@ -444,7 +444,7 @@ const accessoriesProducts = [
       "https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=800&q=80"
     ],
     isNew: true,
-    description: "N\u01B0\u1EDBc hoa \u0111\u1ED9c quy\u1EC1n ATELIER v\u1EDBi 24 n\u1ED1t h\u01B0\u01A1ng hi\u1EBFm. Extrait de Parfum 50ml.",
+    description: "Nước hoa độc quyền FASHY với 24 nốt hương hiếm. Extrait de Parfum 50ml.",
     material: "N\u01B0\u1EDBc hoa Extrait de Parfum 30%",
     rating: 4.9,
     reviews: 31

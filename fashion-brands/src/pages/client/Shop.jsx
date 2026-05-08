@@ -4,7 +4,9 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import FilterSidebar from "@/components/common/FilterSidebar";
 import ProductCard from "@/components/common/ProductCard";
-import { categoryMeta, collections as allCollections, accessorySubcategories, getProductsByCategory } from "@/data/products";
+import { categoryMeta, collections as allCollections, accessorySubcategories } from "@/data/products";
+import { productService } from "@/services/productService";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
 const SORT_OPTIONS = [
   { value: "newest", label: "M\u1EDBi Nh\u1EA5t" },
@@ -15,7 +17,6 @@ const SORT_OPTIONS = [
 const PAGE_SIZE = 8;
 function CategoryPage({ category }) {
   const meta = categoryMeta[category];
-  const catCollections = allCollections[category] || [];
   const catSubcats = category === "accessories" ? accessorySubcategories : [];
   const [filters, setFilters] = useState({
     filterType: "all",
@@ -29,7 +30,45 @@ function CategoryPage({ category }) {
   const [sortOpen, setSortOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const allProducts = getProductsByCategory(category);
+  const [allProducts, setAllProducts] = useState([]);
+  const [dbCollections, setDbCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetch products and collections simultaneously
+        const [productsData, collectionsData] = await Promise.all([
+          productService.getAllPublicProducts(),
+          import('@/services/collectionService').then(m => m.collectionService.getAllCollections()).catch(() => [])
+        ]);
+
+        const filteredByCat = productsData.filter(p => p.category === category);
+        setAllProducts(filteredByCat);
+        
+        if (collectionsData && collectionsData.length > 0) {
+           setDbCollections(collectionsData);
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [category]);
+
+  const catCollections = useMemo(() => {
+    // Kết hợp collection từ db và mock data để không vỡ UI nếu db trống
+    const mockColls = allCollections[category] || [];
+    const dbColls = dbCollections.map(c => c.name);
+    return Array.from(new Set([...dbColls, ...mockColls]));
+  }, [category, dbCollections]);
+
   const filtered = useMemo(() => {
     let prods = [...allProducts];
     if (appliedFilters.filterType === "new") prods = prods.filter((p) => p.isNew);
@@ -126,18 +165,35 @@ function CategoryPage({ category }) {
                 </div>
               </div>
 
-              {paginated.length > 0 ? <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                  {paginated.map((product) => <ProductCard key={product.id} product={product} />)}
-                </div> : <div className="flex flex-col items-center py-20 text-center">
+              {loading ? (
+                <div className="flex flex-col items-center py-20">
+                  <div className="w-8 h-8 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin mb-4" />
+                  <p className="text-xs text-[#5a5248] tracking-widest uppercase">Đang tải sản phẩm...</p>
+                </div>
+              ) : error ? (
+                <div className="flex flex-col items-center py-20 text-center">
+                  <p className="text-red-500 text-xs mb-2">Lỗi kết nối database:</p>
+                  <p className="text-[#5a5248] text-sm mb-4">{error}</p>
+                  <button onClick={() => window.location.reload()} className="btn-gold px-6 py-2 text-[10px]">Thử lại</button>
+                </div>
+              ) : paginated.length > 0 ? (
+                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {paginated.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center py-20 text-center">
                   <p className="text-[#3a3830] text-4xl mb-4">◈</p>
                   <p className="text-sm text-[#5a5248]">Không tìm thấy sản phẩm phù hợp</p>
                   <button
-    onClick={resetFilters}
-    className="mt-4 text-[10px] tracking-widest uppercase text-[#c9a96e] hover:underline"
-  >
+                    onClick={resetFilters}
+                    className="mt-4 text-[10px] tracking-widest uppercase text-[#c9a96e] hover:underline"
+                  >
                     Xóa bộ lọc
                   </button>
-                </div>}
+                </div>
+              )}
 
               {totalPages > 1 && <div className="flex items-center justify-center gap-4 mt-16">
                   <button

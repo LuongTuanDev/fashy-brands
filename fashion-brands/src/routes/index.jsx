@@ -18,8 +18,8 @@ const AppRoutes = () => {
       <Route path="/product/:id" element={<ProductDetail />} />
 
       {/* Luồng cho Admin (Sau này sẽ thêm Auth check ở đây) */}
-      <Route path="/admin" element={<Dashboard />} />
-      <Route path="/admin/products" element={<ProductManagement />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/products" element={<ProductManagement />} />
       
       {/* Trang 404 - Nếu rảnh nhóm làm thêm */}
       <Route path="*" element={<div>Trang không tồn tại!</div>} />
